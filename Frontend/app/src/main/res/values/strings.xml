@@ -1,3 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Cineflix</string>
+    <string name="app_logo">Cineflix Logo</string>
+    <string name="sign_in">Sign In</string>
+    <string name="email_or_phone">Email or phone number</string>
+    <string name="password">Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="need_help">Need help?</string>
+    <string name="new_to_cineflix">New to Cineflix?</string>
+    <string name="sign_up_now">Sign up now</string>
+    <string name="captcha_info">Sign in is protected by Google reCAPTCHA to ensure you\'re not a bot.</string>
 </resources>
