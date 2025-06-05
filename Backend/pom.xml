@@ -14,7 +14,8 @@
   <name>Archetype - Backend</name>
   <url>http://maven.apache.org</url>
   <modules>
-
+    <module>Login_EP</module>
+      <module>Login_G</module>
   </modules>
   <build>
     <plugins>
