@@ -1,8 +1,10 @@
 package com.sahi.loginep.model;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,24 +12,21 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-@Entity
-@Table(name = "users")
+@Document(collection = "users")
 @Getter
 @Setter
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @Column(unique = true, nullable = false)
+    private String id;
+    
+    @Indexed(unique = true)
     private String username;
-    @Column(unique = true, nullable = false)
+    
+    @Indexed(unique = true)
     private String email;
-    @Column(nullable = false)
+    
     private String password;
-
-    @Column(name = "verification_code")
     private String verificationCode;
-    @Column(name = "verification_expiration")
     private LocalDateTime verificationCodeExpiresAt;
     private boolean enabled;
 
@@ -37,8 +36,9 @@ public class User implements UserDetails {
         this.email = email;
         this.password = password;
     }
+
     //default constructor
-    public User(){
+    public User() {
     }
 
     @Override
@@ -46,7 +46,6 @@ public class User implements UserDetails {
         return List.of();
     }
 
-    //TODO: add proper boolean checks
     @Override
     public boolean isAccountNonExpired() {
         return true;
