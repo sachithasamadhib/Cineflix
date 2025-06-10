@@ -11,6 +11,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
@@ -96,26 +99,25 @@ public class AuthenticationService {
         }
     }
 
-    private void sendVerificationEmail(User user) { //TODO: Update with company logo
-        String subject = "Account Verification";
-        String verificationCode = "VERIFICATION CODE " + user.getVerificationCode();
-        String htmlMessage = "<html>"
-                + "<body style=\"font-family: Arial, sans-serif;\">"
-                + "<div style=\"background-color: #f5f5f5; padding: 20px;\">"
-                + "<h2 style=\"color: #333;\">Welcome to our app!</h2>"
-                + "<p style=\"font-size: 16px;\">Please enter the verification code below to continue:</p>"
-                + "<div style=\"background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1);\">"
-                + "<h3 style=\"color: #333;\">Verification Code:</h3>"
-                + "<p style=\"font-size: 18px; font-weight: bold; color: #007bff;\">" + verificationCode + "</p>"
-                + "</div>"
-                + "</div>"
-                + "</body>"
-                + "</html>";
+    private String loadVerificationEmail(String verificationCode) {
+        try (InputStream inputStream = getClass().getClassLoader()
+                .getResourceAsStream("templates/email-verify.html")) {
+            if (inputStream == null) {
+                throw new RuntimeException("Email template not found");
+            }
+            String template = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+            return template.replace("{{verificationCode}}", verificationCode);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load email template", e);
+        }
+    }
 
+    private void sendVerificationEmail(User user) {
+        String subject = "Account Verification";
+        String htmlMessage = loadVerificationEmail(user.getVerificationCode());
         try {
             emailService.sendVerificationEmail(user.getEmail(), subject, htmlMessage);
         } catch (MessagingException e) {
-            // Handle email sending exception
             e.printStackTrace();
         }
     }

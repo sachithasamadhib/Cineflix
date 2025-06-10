@@ -16,6 +16,7 @@
   <modules>
     <module>Login_EP</module>
       <module>Login_G</module>
+    <module>Discoveryserver</module>
   </modules>
   <build>
     <plugins>
