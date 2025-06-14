@@ -17,6 +17,9 @@
     <module>Login_EP</module>
       <module>Login_G</module>
     <module>Discoveryserver</module>
+    <module>Movies</module>
+    <module>Comments</module>
+    <module>Mailserver</module>
   </modules>
   <build>
     <plugins>

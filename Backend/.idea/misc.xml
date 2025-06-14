@@ -12,6 +12,8 @@
         <option value="$PROJECT_DIR$/Login_EP/pom.xml" />
         <option value="$PROJECT_DIR$/Login_G/pom.xml" />
         <option value="$PROJECT_DIR$/Discoveryserver/pom.xml" />
+        <option value="$PROJECT_DIR$/Movies/pom.xml" />
+        <option value="$PROJECT_DIR$/Mailserver/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
