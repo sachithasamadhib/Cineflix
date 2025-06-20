@@ -19,7 +19,6 @@
     <module>Discoveryserver</module>
     <module>Movies</module>
     <module>Comments</module>
-    <module>Mailserver</module>
   </modules>
   <build>
     <plugins>
